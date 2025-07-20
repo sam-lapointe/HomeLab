@@ -1,0 +1,1 @@
+This Github Issue helped in configuring metallb: https://github.com/metallb/metallb/issues/2241
