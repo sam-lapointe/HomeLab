@@ -6,12 +6,15 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://traefik.github.io/charts
-    chart: traefik
-    targetRevision: 36.3.0
+    repoURL: https://github.com/sam-lapointe/HomeLab.git
+    targetRevision: HEAD
+    path: apps/networking/traefik
     helm:
+      repoURL: https://traefik.github.io/charts
+      chart: traefik
+      targetRevision: 36.3.0
       valueFiles:
-        - apps/networking/traefik/values.yaml
+        - values.yaml
 
   destination:
     server: https://kubernetes.default.svc
