@@ -6,7 +6,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/traefik/traefik-helm-chart
+    repoURL: https://traefik.github.io/charts
     chart: traefik
     targetRevision: 36.3.0
     helm:
