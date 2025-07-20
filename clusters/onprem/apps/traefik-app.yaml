@@ -10,9 +10,6 @@ spec:
     targetRevision: HEAD
     path: apps/networking/traefik
     helm:
-      repoURL: https://traefik.github.io/charts
-      chart: traefik
-      targetRevision: 36.3.0
       valueFiles:
         - values.yaml
 
