@@ -1,4 +1,7 @@
 ports:
   web:
-    redirectTo:
-      port: websecure
+    redirections:
+      entrypoint:
+        to: websecure
+        scheme: https
+        permanent: true
