@@ -8,9 +8,7 @@ spec:
   source:
     repoURL: https://github.com/sam-lapointe/HomeLab.git
     targetRevision: HEAD
-    path: apps
-    directory:
-      recurse: true
+    path: clusters/onprem
   destination:
     server: https://kubernetes.default.svc
   syncPolicy:
