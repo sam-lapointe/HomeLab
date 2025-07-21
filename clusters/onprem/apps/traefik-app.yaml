@@ -14,6 +14,7 @@ spec:
         ports:
           web:
             port: 80
+            nodePort: 30080
             redirections:
               entryPoint:
                 to: websecure
@@ -21,6 +22,7 @@ spec:
                 permanent: true
           websecure:
             port: 443
+            nodePort: 30443
   destination:
     server: https://kubernetes.default.svc
     namespace: networking
