@@ -11,17 +11,15 @@ spec:
     targetRevision: 36.3.0
     helm:
       values: |
-        entryPoints:
+        ports:
           web:
-            address: :80
-            http:
-              redirections:
-                entryPoint:
-                  to: websecure
-                  scheme: https
-
+            port: 80
+            redirectTo:
+              port: websecure
+              scheme: https
+              permanent: true
           websecure:
-            address: :443
+            port: 443
   destination:
     server: https://kubernetes.default.svc
     namespace: networking
