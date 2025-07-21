@@ -16,7 +16,7 @@ spec:
             port: 80
             redirections:
               entryPoint:
-                port: websecure
+                to: websecure
                 scheme: https
                 permanent: true
           websecure:
