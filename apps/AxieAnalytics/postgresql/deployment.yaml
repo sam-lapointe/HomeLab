@@ -20,7 +20,7 @@ spec:
             - name: POSTGRES_USER
               valueFrom:
                 configMapKeyRef:
-                  name: postgres-secret
+                  name: postgres-configmap
                   key: PG_ADMIN_USERNAME
             - name: POSTGRES_PASSWORD
               valueFrom:
