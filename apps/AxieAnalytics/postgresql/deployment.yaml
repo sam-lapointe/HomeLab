@@ -64,6 +64,8 @@ spec:
                 --url="$LIQUIBASE_COMMAND_URL" \
                 --username="$LIQUIBASE_COMMAND_USERNAME" \
                 --password="$LIQUIBASE_COMMAND_PASSWORD" \
+                --log-level=INFO \
+                --defaultsFile=/dev/null \
                 --changelog-file=./changelogs/master.yaml update
           env:
             - name: PG_HOST
