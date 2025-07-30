@@ -6,7 +6,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/sam-lapointe/AxieAnalytics-K8S
+    repoURL: https://github.com/sam-lapointe/HomeLab
     path: apps/AxieAnalytics
     targetRevision: main
   destination:
