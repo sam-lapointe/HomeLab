@@ -13,7 +13,28 @@ spec:
       labels: 
         app: axieanalytics-postgresql
     spec:
-      initContainers:
+      containers:
+        - name: postgresql
+          image: postgres:17.5
+          env:
+            - name: POSTGRES_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: postgres-secret
+                  key: PG_ADMIN_USERNAME
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret
+                  key: PG_ADMIN_PASSWORD
+            - name: POSTGRES_DB
+              valueFrom:
+                configMapKeyRef:
+                  name: postgres-configmap
+                  key: PG_DATABASE
+          volumeMounts:
+            - name: postgres-storage
+              mountPath: /var/lib/postgresql/data
         - name: liquibase
           image: samlapointe01/axie-analytics:database-397
           command:
@@ -46,28 +67,6 @@ spec:
                 configMapKeyRef:
                   name: postgres-configmap
                   key: PG_DATABASE
-      containers:
-        - name: postgresql
-          image: postgres:17.5
-          env:
-            - name: POSTGRES_USER
-              valueFrom:
-                configMapKeyRef:
-                  name: postgres-secret
-                  key: PG_ADMIN_USERNAME
-            - name: POSTGRES_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: postgres-secret
-                  key: PG_ADMIN_PASSWORD
-            - name: POSTGRES_DB
-              valueFrom:
-                configMapKeyRef:
-                  name: postgres-configmap
-                  key: PG_DATABASE
-          volumeMounts:
-            - name: postgres-storage
-              mountPath: /var/lib/postgresql/data
 
       volumes:
         - name: postgres-storage
