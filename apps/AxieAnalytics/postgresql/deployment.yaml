@@ -35,6 +35,22 @@ spec:
           volumeMounts:
             - name: postgres-storage
               mountPath: /var/lib/postgresql/data
+      volumes:
+        - name: postgres-storage
+          persistentVolumeClaim:
+            claimName: axieanalytics-postgresql-pvc
+      restartPolicy: Always
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: axieanalytics-postgresql-init
+  namespace: axieanalytics
+spec:
+  template:
+    spec:
+      restartPolicy: OnFailure
+      containers:
         - name: liquibase
           image: samlapointe01/axie-analytics:database-401
           command:
@@ -46,7 +62,10 @@ spec:
               liquibase --changelog-file=./changelogs/master.yaml update
           env:
             - name: PG_HOST
-              value: localhost
+              valueFrom:
+                configMapKeyRef:
+                  name: postgres-configmap
+                  key: PG_HOST
             - name: PG_PORT
               valueFrom:
                 configMapKeyRef:
@@ -97,8 +116,3 @@ spec:
                 secretKeyRef:
                   name: postgres-secret
                   key: PG_BACKEND_PASSWORD
-      volumes:
-        - name: postgres-storage
-          persistentVolumeClaim:
-            claimName: axieanalytics-postgresql-pvc
-      restartPolicy: Always
