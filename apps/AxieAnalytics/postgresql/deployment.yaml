@@ -41,7 +41,7 @@ spec:
             - sh
             - -c
             - |
-              export LIQUIBASE_URL="jdbc:postgresql://$PG_HOST:$PG_PORT/$PG_DATABASE" && \
+              export LIQUIBASE_COMMAND_URL="jdbc:postgresql://$PG_HOST:$PG_PORT/$PG_DATABASE" && \
               until pg_isready -h $PG_HOST -p $PG_PORT; do sleep 2; done && \
               liquibase --defaultsFile=liquibase.properties update
           env:
@@ -52,12 +52,12 @@ spec:
                 configMapKeyRef:
                   name: postgres-configmap
                   key: PG_PORT
-            - name: LIQUIBASE_USERNAME
+            - name: LIQUIBASE_COMMAND_USERNAME
               valueFrom:
                 configMapKeyRef:
                   name: postgres-configmap
                   key: PG_ADMIN_USERNAME
-            - name: LIQUIBASE_PASSWORD
+            - name: LIQUIBASE_COMMAND_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: postgres-secret
