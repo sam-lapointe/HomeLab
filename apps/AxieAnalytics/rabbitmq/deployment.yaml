@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: axieanalytics-rabbitmq
+  namespace: axieanalytics
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: axieanalytics-rabbitmq
+  template:
+    metadata:
+      labels: 
+        app: axieanalytics-rabbitmq
+    spec:
+      containers:
+        - name: rabbitmq
+          image: rabbitmq:4.1.2-management
+          ports:
+            - containerPort: 5672  # AMQP
+            - containerPort: 15672  # Management UI
+          env:
+            - name: RABBITMQ_DEFAULT_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: rabbitmq-configmap
+                  key: RABBITMQ_USERNAME
+            - name: RABBITMQ_DEFAULT_PASS
+              valueFrom:
+                secretKeyRef:
+                  name: rabbitmq-secret
+                  key: RABBITMQ_PASSWORD
+
+# Add persistent volume claim for RabbitMQ data

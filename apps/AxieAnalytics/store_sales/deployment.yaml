@@ -1,0 +1,82 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: axieanalytics-store-sales
+  namespace: axieanalytics
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: axieanalytics-store-sales
+  template:
+    metadata:
+      labels:
+        app: axieanalytics-store-sales
+    spec:
+      containers:
+        - name: axieanalytics-store-sales
+          image: samlapointe01/axie-analytics:store-sales-391
+          ports:
+            - containerPort: 8080
+          env:
+            - name: PG_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: postgres-configmap
+                  key: PG_HOST
+            - name: PG_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: postgres-configmap
+                  key: PG_PORT
+            - name: PG_USERNAME
+              valueFrom:
+                configMapKeyRef:
+                  name: postgres-configmap
+                  key: PG_SALES_USERNAME
+            - name: PG_DATABASE
+              valueFrom:
+                configMapKeyRef:
+                  name: postgres-configmap
+                  key: PG_DATABASE
+            - name: PG_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret
+                  key: PG_SALES_PASSWORD
+            - name: RABBITMQ_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: rabbitmq-configmap
+                  key: RABBITMQ_HOST
+            - name: RABBITMQ_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: rabbitmq-configmap
+                  key: RABBITMQ_PORT
+            - name: RABBITMQ_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: rabbitmq-configmap
+                  key: RABBITMQ_USERNAME
+            - name: RABBITMQ_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: rabbitmq-secret
+                  key: RABBITMQ_PASSWORD
+            - name: RABBITMQ_QUEUE_AXIES_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: rabbitmq-configmap
+                  key: RABBITMQ_QUEUE_AXIES_NAME
+            - name: RABBITMQ_QUEUE_SALES_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: rabbitmq-configmap
+                  key: RABBITMQ_QUEUE_SALES_NAME
+            - name: NODE_PROVIDER
+              valueFrom:
+                secretKeyRef:
+                  name: axie-secret
+                  key: NODE_PROVIDER
+      restartPolicy: Always

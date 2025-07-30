@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: axieanalytics-backend
+  namespace: axieanalytics
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: axieanalytics-backend
+  template:
+    metadata:
+      labels:
+        app: axieanalytics-backend
+    spec:
+      containers:
+        - name: axieanalytics-backend
+          image: samlapointe01/axie-analytics:backend-398
+          ports:
+            - containerPort: 8080
+          env:
+            - name: REDIS_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: redis-configmap
+                  key: REDIS_HOST
+            - name: REDIS_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: redis-configmap
+                  key: REDIS_PORT
+            - name: PG_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: postgres-configmap
+                  key: PG_HOST
+            - name: PG_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: postgres-configmap
+                  key: PG_PORT
+            - name: PG_USERNAME
+              valueFrom:
+                configMapKeyRef:
+                  name: postgres-configmap
+                  key: PG_BACKEND_USERNAME
+            - name: PG_DATABASE
+              valueFrom:
+                configMapKeyRef:
+                  name: postgres-configmap
+                  key: PG_DATABASE
+            - name: PG_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret
+                  key: PG_BACKEND_PASSWORD
+      restartPolicy: Always

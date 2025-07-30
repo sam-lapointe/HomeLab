@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: axieanalytics-frontend
+  namespace: axieanalytics
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: axieanalytics-frontend
+  template:
+    metadata:
+      labels:
+        app: axieanalytics-frontend
+    spec:
+      containers:
+        - name: axieanalytics-frontend
+          image: samlapointe01/axie-analytics:frontend-392
+          ports:
+            - containerPort: 8080
+      restartPolicy: Always

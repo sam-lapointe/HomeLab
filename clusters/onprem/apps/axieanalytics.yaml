@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: axieanalytics
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/sam-lapointe/AxieAnalytics-K8S
+    path: apps/axieanalytics
+    targetRevision: main
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: axieanalytics
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

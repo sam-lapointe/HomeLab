@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: axieanalytics-redis
+  namespace: axieanalytics
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: axieanalytics-redis
+  template:
+    metadata:
+      labels: 
+        app: axieanalytics-redis
+    spec:
+      containers:
+        - name: redis
+          image: redis:8.0
+          ports:
+            - containerPort: 6379

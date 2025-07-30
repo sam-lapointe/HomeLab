@@ -1,0 +1,2 @@
+# Allow ingress from frontend.
+# Allow egress to PostgreSQL, Redis and Internet.

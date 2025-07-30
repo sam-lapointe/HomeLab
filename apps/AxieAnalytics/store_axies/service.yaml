@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: axieanalytics-store-axies
+  namespace: axieanalytics
+spec:
+  selector:
+    app: axieanalytics-store-axies
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
+  type: ClusterIP

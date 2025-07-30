@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: axieanalytics-webhook
+  namespace: axieanalytics
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: axieanalytics-webhook
+  template:
+    metadata:
+      labels:
+        app: axieanalytics-webhook
+    spec:
+      containers:
+        - name: axieanalytics-webhook
+          image: samlapointe01/axie-analytics:webhook_listener-391
+          ports:
+            - containerPort: 8080
+          env:
+            - name: AUTHORIZED_IPS
+              value: "[]"  # Replace with actual authorized IPs if needed
+            - name: SIGNING_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: axie-secret
+                  key: SIGNING_KEY
+            - name: RABBITMQ_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: rabbitmq-configmap
+                  key: RABBITMQ_HOST
+            - name: RABBITMQ_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: rabbitmq-configmap
+                  key: RABBITMQ_PORT
+            - name: RABBITMQ_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: rabbitmq-configmap
+                  key: RABBITMQ_USERNAME
+            - name: RABBITMQ_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: rabbitmq-secret
+                  key: RABBITMQ_PASSWORD
+            - name: RABBITMQ_QUEUE_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: rabbitmq-configmap
+                  key: RABBITMQ_QUEUE_SALES_NAME
+      restartPolicy: Always
