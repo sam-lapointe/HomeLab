@@ -67,7 +67,36 @@ spec:
                 configMapKeyRef:
                   name: postgres-configmap
                   key: PG_DATABASE
-
+            - name: store_sales_username
+              valueFrom:
+                configMapKeyRef:
+                  name: postgres-configmap
+                  key: PG_SALES_USERNAME
+            - name: store_sales_password
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret
+                  key: PG_SALES_PASSWORD
+            - name: store_axies_username
+              valueFrom:
+                configMapKeyRef:
+                  name: postgres-configmap
+                  key: PG_AXIES_USERNAME
+            - name: store_axies_password
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret
+                  key: PG_AXIES_PASSWORD
+            - name: backend_username
+              valueFrom:
+                configMapKeyRef:
+                  name: postgres-configmap
+                  key: PG_BACKEND_USERNAME
+            - name: backend_password
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret
+                  key: PG_BACKEND_PASSWORD
       volumes:
         - name: postgres-storage
           persistentVolumeClaim:
