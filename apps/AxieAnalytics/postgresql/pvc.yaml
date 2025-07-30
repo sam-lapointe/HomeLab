@@ -1,4 +1,21 @@
 apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: axieanalytics-postgresql-pv
+  namespace: axieanalytics
+spec:
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  hostPath:
+    path: /mnt/data/axieanalytics-postgresql
+  claimRef:
+    namespace: axieanalytics
+    name: axieanalytics-postgresql-pvc
+---
+apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: axieanalytics-postgresql-pvc
