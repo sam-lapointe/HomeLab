@@ -41,79 +41,79 @@ spec:
             claimName: axieanalytics-postgresql-pvc
       restartPolicy: Always
 ---
-# apiVersion: batch/v1
-# kind: Job
-# metadata:
-#   name: axieanalytics-postgresql-init
-#   namespace: axieanalytics
-# spec:
-#   template:
-#     spec:
-#       restartPolicy: OnFailure
-#       containers:
-#         - name: liquibase
-#           image: samlapointe01/axie-analytics:database-401
-#           command:
-#             - sh
-#             - -c
-#             - |
-#               export LIQUIBASE_COMMAND_URL="jdbc:postgresql://$PG_HOST:$PG_PORT/$PG_DATABASE" && \
-#               echo "URL: $LIQUIBASE_COMMAND_URL | USER $LIQUIBASE_COMMAND_USERNAME | Password $LIQUIBASE_COMMAND_PASSWORD" && \
-#               until pg_isready -h $PG_HOST -p $PG_PORT; do sleep 2; done && \
-#               liquibase --changelog-file=./changelogs/master.yaml update
-#           env:
-#             - name: PG_HOST
-#               valueFrom:
-#                 configMapKeyRef:
-#                   name: postgres-configmap
-#                   key: PG_HOST
-#             - name: PG_PORT
-#               valueFrom:
-#                 configMapKeyRef:
-#                   name: postgres-configmap
-#                   key: PG_PORT
-#             - name: LIQUIBASE_COMMAND_USERNAME
-#               valueFrom:
-#                 configMapKeyRef:
-#                   name: postgres-configmap
-#                   key: PG_ADMIN_USERNAME
-#             - name: LIQUIBASE_COMMAND_PASSWORD
-#               valueFrom:
-#                 secretKeyRef:
-#                   name: postgres-secret
-#                   key: PG_ADMIN_PASSWORD
-#             - name: PG_DATABASE
-#               valueFrom:
-#                 configMapKeyRef:
-#                   name: postgres-configmap
-#                   key: PG_DATABASE
-#             - name: store_sales_username
-#               valueFrom:
-#                 configMapKeyRef:
-#                   name: postgres-configmap
-#                   key: PG_SALES_USERNAME
-#             - name: store_sales_password
-#               valueFrom:
-#                 secretKeyRef:
-#                   name: postgres-secret
-#                   key: PG_SALES_PASSWORD
-#             - name: store_axies_username
-#               valueFrom:
-#                 configMapKeyRef:
-#                   name: postgres-configmap
-#                   key: PG_AXIES_USERNAME
-#             - name: store_axies_password
-#               valueFrom:
-#                 secretKeyRef:
-#                   name: postgres-secret
-#                   key: PG_AXIES_PASSWORD
-#             - name: backend_username
-#               valueFrom:
-#                 configMapKeyRef:
-#                   name: postgres-configmap
-#                   key: PG_BACKEND_USERNAME
-#             - name: backend_password
-#               valueFrom:
-#                 secretKeyRef:
-#                   name: postgres-secret
-#                   key: PG_BACKEND_PASSWORD
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: axieanalytics-postgresql-init
+  namespace: axieanalytics
+spec:
+  template:
+    spec:
+      restartPolicy: OnFailure
+      containers:
+        - name: liquibase
+          image: samlapointe01/axie-analytics:database-401
+          command:
+            - sh
+            - -c
+            - |
+              export LIQUIBASE_COMMAND_URL="jdbc:postgresql://$PG_HOST:$PG_PORT/$PG_DATABASE" && \
+              echo "URL: $LIQUIBASE_COMMAND_URL | USER $LIQUIBASE_COMMAND_USERNAME | Password $LIQUIBASE_COMMAND_PASSWORD" && \
+              until pg_isready -h $PG_HOST -p $PG_PORT; do sleep 2; done && \
+              liquibase --changelog-file=./changelogs/master.yaml update
+          env:
+            - name: PG_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: postgres-configmap
+                  key: PG_HOST
+            - name: PG_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: postgres-configmap
+                  key: PG_PORT
+            - name: LIQUIBASE_COMMAND_USERNAME
+              valueFrom:
+                configMapKeyRef:
+                  name: postgres-configmap
+                  key: PG_ADMIN_USERNAME
+            - name: LIQUIBASE_COMMAND_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret
+                  key: PG_ADMIN_PASSWORD
+            - name: PG_DATABASE
+              valueFrom:
+                configMapKeyRef:
+                  name: postgres-configmap
+                  key: PG_DATABASE
+            - name: store_sales_username
+              valueFrom:
+                configMapKeyRef:
+                  name: postgres-configmap
+                  key: PG_SALES_USERNAME
+            - name: store_sales_password
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret
+                  key: PG_SALES_PASSWORD
+            - name: store_axies_username
+              valueFrom:
+                configMapKeyRef:
+                  name: postgres-configmap
+                  key: PG_AXIES_USERNAME
+            - name: store_axies_password
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret
+                  key: PG_AXIES_PASSWORD
+            - name: backend_username
+              valueFrom:
+                configMapKeyRef:
+                  name: postgres-configmap
+                  key: PG_BACKEND_USERNAME
+            - name: backend_password
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret
+                  key: PG_BACKEND_PASSWORD
