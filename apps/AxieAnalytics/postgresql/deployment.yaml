@@ -36,7 +36,7 @@ spec:
             - name: postgres-storage
               mountPath: /var/lib/postgresql/data
         - name: liquibase
-          image: samlapointe01/axie-analytics:database-397
+          image: samlapointe01/axie-analytics:database-401
           command:
             - sh
             - -c
