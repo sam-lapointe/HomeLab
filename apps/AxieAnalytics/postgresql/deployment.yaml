@@ -43,7 +43,7 @@ spec:
             - |
               export LIQUIBASE_COMMAND_URL="jdbc:postgresql://$PG_HOST:$PG_PORT/$PG_DATABASE" && \
               until pg_isready -h $PG_HOST -p $PG_PORT; do sleep 2; done && \
-              liquibase --defaultsFile=liquibase.properties update
+              liquibase --changelog-file=./changelogs/master.yaml update
           env:
             - name: PG_HOST
               value: localhost
