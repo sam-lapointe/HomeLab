@@ -57,8 +57,8 @@ spec:
             - sh
             - -c
             - |
-              export LIQUIBASE_COMMAND_URL="jdbc:postgresql://$PG_HOST:$PG_PORT/$PG_DATABASE" && \
-              echo "URL: $LIQUIBASE_COMMAND_URL | USER $LIQUIBASE_COMMAND_USERNAME | Password $LIQUIBASE_COMMAND_PASSWORD" && \
+              export LIQUIBASE_COMMAND_URL="jdbc:postgresql://$PG_HOST:$PG_PORT/$PG_DATABASE?useSSL=false" && \
+              echo "URL: $LIQUIBASE_COMMAND_URL | USER $LIQUIBASE_COMMAND_USERNAME | Password $LIQUIBASE_COMMAND_PASSWORD." && \
               until pg_isready -h $PG_HOST -p $PG_PORT; do sleep 2; done && \
               liquibase --changelog-file=./changelogs/master.yaml update
           env:
