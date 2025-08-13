@@ -28,7 +28,8 @@ spec:
         service:
           enabled: true
           type: LoadBalancer
-          loadBalancerIP: 192.168.100.240
+          spec:
+            loadBalancerIP: 192.168.100.240
   destination:
     server: https://kubernetes.default.svc
     namespace: networking
@@ -69,7 +70,8 @@ spec:
         service:
           enabled: true
           type: LoadBalancer
-          loadBalancerIP: 192.168.100.241
+          spec:
+            loadBalancerIP: 192.168.100.241
   destination:
     server: https://kubernetes.default.svc
     namespace: networking
