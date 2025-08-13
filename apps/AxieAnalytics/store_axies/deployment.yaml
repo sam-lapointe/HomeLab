@@ -69,4 +69,9 @@ spec:
                 configMapKeyRef:
                   name: rabbitmq-configmap
                   key: RABBITMQ_QUEUE_AXIES_NAME
+            - name: AXIE_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: axie-secret
+                  key: AXIE_API_KEY
       restartPolicy: Always
