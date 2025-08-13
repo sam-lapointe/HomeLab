@@ -23,7 +23,7 @@ spec:
             port: 8443
         ingressClass:
           enabled: true
-          isDefaultClass: true
+          isDefaultClass: false
           name: traefik-internal
         service:
           enabled: true
