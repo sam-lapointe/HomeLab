@@ -10,9 +10,9 @@ spec:
     - protocol: TCP
       port: 80
       name: http
-      targetPort: 8080
+      targetPort: 8000
     - protocol: TCP
       port: 443
       name: https
-      targetPort: 80
+      targetPort: 8000
   type: ClusterIP
