@@ -1,20 +1,20 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: axieanalytics-ingress-frontend
+  name: axieanalytics-ingress-postgres
   namespace: axieanalytics
   annotations:
     traefik.ingress.kubernetes.io/router.entrypoints: web, websecure
 spec:
-  ingressClassName: traefik-external
+  ingressClassName: traefik-internal
   rules:
-    - host: axieanalytics.com
+    - host: pg.axieanalytics.com
       http:
         paths:
           - path: /
             pathType: Prefix
             backend:
               service:
-                name: axieanalytics-frontend
+                name: axieanalytics-postgresql
                 port:
-                  number: 80
+                  number: 5432
