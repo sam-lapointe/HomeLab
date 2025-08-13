@@ -17,5 +17,5 @@ spec:
         - name: axieanalytics-frontend
           image: samlapointe01/axie-analytics:frontend-392
           ports:
-            - containerPort: 8080
+            - containerPort: 80
       restartPolicy: Always
