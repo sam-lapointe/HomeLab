@@ -93,12 +93,12 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: traefik-internal
+  name: traefik-external
   namespace: networking
 spec:
   type: LoadBalancer
   selector:
-    app: traefik-internal
+    app: traefik-external
   ports:
     - name: web
       port: 8000
