@@ -3,6 +3,8 @@ kind: Ingress
 metadata:
   name: rabbitmq-ingress
   namespace: axieanalytics
+  annotations:
+    traefik.ingress.kubernetes.io/router.entrypoints: web, websecure
 spec:
   rules:
     - host: rabbitmq.axieanalytics.com
