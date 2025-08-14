@@ -9,3 +9,17 @@ spec:
   ports:
     - port: 5432
   type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: axieanalytics-postgresql-internal
+  namespace: axieanalytics
+spec:
+  type: LoadBalancer
+  selector:
+    app: axieanalytics-postgresql
+  ports:
+    - port: 5432
+      targetPort: 5432
+  loadBalancerIP: 192.168.100.244
