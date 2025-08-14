@@ -17,7 +17,7 @@ spec:
         - name: axieanalytics-backend
           image: samlapointe01/axie-analytics:backend-402
           ports:
-            - containerPort: 8080
+            - containerPort: 8000
           env:
             - name: REDIS_HOST
               valueFrom:
