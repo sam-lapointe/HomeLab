@@ -16,7 +16,13 @@ spec:
       initContainers:
         - name: copy-pg-hba
           image: busybox
-          command: ["sh", "-c", "cp /config/pg_hba.conf /var/lib/postgresql/data/pg_hba.conf"]
+          command:
+            - sh
+            - -c
+            - |
+              if [ -d /var/lib/postgresql/data]; then
+                cp /config/pg_hba.conf /var/lib/postgresql/data/pg_hba.conf;
+              fi
           volumeMounts:
             - name: pg-hba-config
               mountPath: /config
