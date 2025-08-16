@@ -13,6 +13,15 @@ spec:
       labels: 
         app: axieanalytics-postgresql
     spec:
+      initContainers:
+        - name: copy-pg-hba
+          image: busybox
+          command: ["sh", "-c", "cp /config/pg_hba.conf /var/lib/postgresql/data/pg_hba.conf"]
+          volumeMounts:
+            - name: pg-hba-config
+              mountPath: /config
+            - name: postgres-storage
+              mountPath: /var/lib/postgresql/data
       containers:
         - name: postgresql
           image: postgres:17.5
@@ -40,6 +49,9 @@ spec:
         - name: postgres-storage
           persistentVolumeClaim:
             claimName: axieanalytics-postgresql-pvc
+        - name: pg-hba-config
+          configMap:
+            name: postgres-hba
       restartPolicy: Always
 ---
 apiVersion: batch/v1
