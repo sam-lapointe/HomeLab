@@ -20,7 +20,7 @@ spec:
             - sh
             - -c
             - |
-              if [ -d /var/lib/postgresql/data]; then
+              if [ -d /var/lib/postgresql/data/base ]; then
                 cp /config/pg_hba.conf /var/lib/postgresql/data/pg_hba.conf;
               fi
           volumeMounts:
