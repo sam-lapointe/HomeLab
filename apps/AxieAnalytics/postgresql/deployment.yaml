@@ -13,28 +13,28 @@ spec:
       labels: 
         app: axieanalytics-postgresql
     spec:
-      initContainers:
-        - name: copy-pg-hba
-          image: busybox
-          command:
-            - sh
-            - -c
-            - |
-              echo "Contents of /var/lib/postgresql/data:"
-              ls -la /var/lib/postgresql/data/
-              echo "Checking for base directory..."
-              if [ -d /var/lib/postgresql/data/base ]; then
-                echo "Database exists, copying pg_hba.conf..."
-                cp /config/pg_hba.conf /var/lib/postgresql/data/pg_hba.conf
-                echo "pg_hba.conf copied successfully"
-              else
-                echo "Database not initialized yet, base directory does not exist"
-              fi
-          volumeMounts:
-            - name: pg-hba-config
-              mountPath: /config
-            - name: postgres-storage
-              mountPath: /var/lib/postgresql/data
+      # initContainers:
+      #   - name: copy-pg-hba
+      #     image: busybox
+      #     command:
+      #       - sh
+      #       - -c
+      #       - |
+      #         echo "Contents of /var/lib/postgresql/data:"
+      #         ls -la /var/lib/postgresql/data/
+      #         echo "Checking for base directory..."
+      #         if [ -d /var/lib/postgresql/data/base ]; then
+      #           echo "Database exists, copying pg_hba.conf..."
+      #           cp /config/pg_hba.conf /var/lib/postgresql/data/pg_hba.conf
+      #           echo "pg_hba.conf copied successfully"
+      #         else
+      #           echo "Database not initialized yet, base directory does not exist"
+      #         fi
+      #     volumeMounts:
+      #       - name: pg-hba-config
+      #         mountPath: /config
+      #       - name: postgres-storage
+      #         mountPath: /var/lib/postgresql/data
       containers:
         - name: postgresql
           image: postgres:17.5
@@ -62,9 +62,9 @@ spec:
         - name: postgres-storage
           persistentVolumeClaim:
             claimName: axieanalytics-postgresql-pvc
-        - name: pg-hba-config
-          configMap:
-            name: postgres-hba
+        # - name: pg-hba-config
+        #   configMap:
+        #     name: postgres-hba
       restartPolicy: Always
 ---
 apiVersion: batch/v1
