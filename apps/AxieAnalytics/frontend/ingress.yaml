@@ -8,7 +8,7 @@ metadata:
 spec:
   ingressClassName: traefik-external
   rules:
-    - host: axieanalytics.com
+    - host: test.axieanalytics.com
       http:
         paths:
           - path: /
