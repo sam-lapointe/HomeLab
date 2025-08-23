@@ -25,6 +25,6 @@ spec:
         - name: TUNNEL_TOKEN
           valueFrom:
             secretKeyRef:
-              name: cloudflared-secret
+              name: cloudflare-secret
               key: TOKEN
       restartPolicy: Always
