@@ -18,3 +18,5 @@ spec:
                 name: axieanalytics-backend
                 port:
                   number: 80
+  tls:
+    secretName: axieanalytics-com-tls
