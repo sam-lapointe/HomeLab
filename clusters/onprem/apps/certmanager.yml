@@ -23,10 +23,9 @@ spec:
       - CreateNamespace=true
 ---
 apiVersion: cert-manager.io/v1
-kind: Issuer
+kind: ClusterIssuer
 metadata:
   name: azuredns-issuer
-  namespace: cert-manager
 spec:
   acme:
     server: https://acme-v02.api.letsencrypt.org/directory
@@ -50,7 +49,7 @@ apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: axieanalytics-com
-  namespace: cert-manager
+  namespace: axieanalytics
 spec:
   secretName: axieanalytics-com-tls
   duration: 2160h # 90d
@@ -61,4 +60,4 @@ spec:
     - "*.axieanalytics.com"
   issuerRef:
     name: azuredns-issuer
-    kind: Issuer
+    kind: ClusterIssuer
