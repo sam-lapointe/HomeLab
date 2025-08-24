@@ -5,6 +5,7 @@ metadata:
   namespace: axieanalytics
   annotations:
     traefik.ingress.kubernetes.io/router.entrypoints: web, websecure
+    traefik.ingress.kubernetes.io/service.passhostheader: "true"
 spec:
   ingressClassName: traefik-external
   rules:
