@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: axieanalytics-webhook
-          image: samlapointe01/axie-analytics:webhook_listener-391
+          image: samlapointe01/axie-analytics:webhook_listener-408
           ports:
             - containerPort: 8080
           env:
