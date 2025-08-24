@@ -30,5 +30,7 @@ spec:
                 secretKeyRef:
                   name: rabbitmq-secret
                   key: RABBITMQ_PASSWORD
-
-# Add persistent volume claim for RabbitMQ data
+      volumes:
+        - name: rabbitmq-storage
+          persistentVolumeClaim:
+            claimName: axieanalytics-rabbitmq-pvc
