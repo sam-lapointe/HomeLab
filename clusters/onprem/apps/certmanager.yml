@@ -28,7 +28,6 @@ metadata:
   name: azuredns-issuer
 spec:
   acme:
-    ...
     solvers:
     - dns01:
         azureDNS:
