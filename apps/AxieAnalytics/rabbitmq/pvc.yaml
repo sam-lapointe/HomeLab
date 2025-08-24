@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: axieanalytics-rabbitmq-pv
+  namespace: axieanalytics
+spec:
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  hostPath:
+    path: /mnt/data/axieanalytics-rabbitmq
+  claimRef:
+    namespace: axieanalytics
+    name: axieanalytics-rabbitmq-pvc
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: axieanalytics-rabbitmq-pvc
+  namespace: axieanalytics
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
