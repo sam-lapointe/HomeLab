@@ -20,7 +20,10 @@ spec:
             - containerPort: 8080
           env:
             - name: AUTHORIZED_IPS
-              value: "[]"  # Replace with actual authorized IPs if needed
+              valueFrom:
+                configMapKeyRef:
+                  name: axie-configmap
+                  key: AUTHORIZED_IPS
             - name: SIGNING_KEY
               valueFrom:
                 secretKeyRef:
