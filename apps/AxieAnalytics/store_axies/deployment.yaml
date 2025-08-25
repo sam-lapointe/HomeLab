@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: axieanalytics-store-axies
-          image: samlapointe01/axie-analytics:store_axies-414
+          image: samlapointe01/axie-analytics:store_axies-416
           ports:
             - containerPort: 8080
           env:
